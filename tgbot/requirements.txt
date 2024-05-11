@@ -1,6 +1,7 @@
 aiogram
 aiogram-dialog
 alembic
+apscheduler
 asyncpg
 environs
 Jinja2

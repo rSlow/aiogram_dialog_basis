@@ -4,9 +4,16 @@ from sqlalchemy import func
 from sqlalchemy.orm import Mapped, mapped_column, declared_attr
 
 
+class IDMixin:
+    id: Mapped[int] = mapped_column(primary_key=True)
+
+
 class TimestampMixin:
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
-    edited_at: Mapped[datetime] = mapped_column(onupdate=func.now())
+    edited_at: Mapped[datetime] = mapped_column(
+        onupdate=func.now(),
+        nullable=True
+    )
 
 
 class ModelNameMixin:

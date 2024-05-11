@@ -15,3 +15,26 @@ class WhenUserID(UserIDMixin):
         if str(user_id) in self.users_id:
             return True
         return False
+
+
+class WhenAble:
+    def __init__(self,
+                 key: str,
+                 flag: bool = True,
+                 in_dialog_data: bool = False):
+        self.key = key
+        self.flag = flag
+        self.in_dialog_data = in_dialog_data
+
+    def __call__(self,
+                 data: dict,
+                 _: Whenable,
+                 manager: DialogManager):
+        if self.in_dialog_data:
+            result = manager.dialog_data.get(self.key)
+        else:
+            result = data.get(self.key)
+        return bool(result) == self.flag
+
+    def __invert__(self) -> Self:
+        return type(self)(self.key, not self.flag)
